@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _lat = position?.latitude;
         _long = position?.longitude;
-        _speed = (position?.speed * 3.6 * 100).round(); //remove 100
+        _speed = (position?.speed * 3.6).round(); //remove 100
       });
       if (_speed >= 10 && _speed <= 11 && !stopwatch1.isRunning) {
         stopwatch1.reset();
