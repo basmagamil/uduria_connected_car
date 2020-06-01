@@ -36,8 +36,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double _lat = 0;
-  double _long = 0;
   // double _speed = 0; //int
   int _speed = 0;
   int _duration1 = 0;
@@ -59,8 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
         .getPositionStream(locationOptions)
         .listen((Position position) {
       setState(() {
-        _lat = position?.latitude;
-        _long = position?.longitude;
         _speed = (position?.speed * 3.6).round(); //remove 100
       });
       if (_speed >= 10 && _speed <= 11 && !stopwatch1.isRunning) {
