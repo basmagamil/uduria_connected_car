@@ -5,7 +5,6 @@ import 'package:geolocator/geolocator.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,9 +45,11 @@ class _MyHomePageState extends State<MyHomePage> {
   var stopwatch2 = new Stopwatch();
 
   _MyHomePageState() : super() {
+    var tolerance = 0;
     var timer =
         new Timer.periodic(new Duration(milliseconds: 1000), _updateTime);
 
+    ////For testing using stream
     // Stream<int> stream =
     //     Stream<int>.periodic(new Duration(milliseconds: 1000), incrementSpeed);
     // updateSpeed(stream);
@@ -57,14 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
         .getPositionStream(locationOptions)
         .listen((Position position) {
       setState(() {
+        //comment when testing stream
         _speed = (position?.speed * 3.6).round(); //remove 100
       });
-      if (_speed >= 10 && _speed <= 11 && !stopwatch1.isRunning) {
+      if (_speed >= 10 && _speed <= 10 + tolerance && !stopwatch1.isRunning) {
         stopwatch1.reset();
         stopwatch1.start();
       } else if ((_speed >= 30 || _speed <= 10) && stopwatch1.isRunning) {
         stopwatch1.stop();
-      } else if (_speed <= 31 && _speed >= 30 && !stopwatch2.isRunning) {
+      } else if (_speed <= 30 &&
+          _speed >= 30 - tolerance &&
+          !stopwatch2.isRunning) {
         stopwatch2.reset();
         stopwatch2.start();
       } else if ((_speed <= 10 || _speed >= 30) && stopwatch2.isRunning) {
@@ -73,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  ////For testing using Stream
   // int incrementSpeed(int value) {
   //   // return value;
   //   return (40 - value).abs();
